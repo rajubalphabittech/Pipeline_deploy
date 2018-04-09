@@ -26,7 +26,14 @@ pipeline {
                     }
                 }
             }
-    
+            stage('Staging Permission') {
+                agent none
+                steps{
+                        timeout(time:5, unit:'MINUTES') {
+                        input message:'Approve deployment?', submitter: 'Vd-infra'
+                    }
+                }
+            }
             stage ('Deployments'){
                 parallel{
                     stage ('Deploy to Staging'){
