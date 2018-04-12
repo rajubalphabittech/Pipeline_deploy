@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        lable :'master'
+    }
 	
 	parameters {
          string(name: 'tomcat_dev', defaultValue: '10.137.0.180', description: 'Staging Server')
@@ -9,6 +11,11 @@ pipeline {
 		maven "MAVEN_HOME"
 		jdk "JAVA_HOME"
     }
+
+    triggers { 
+        pollSCM('* * * * *') 
+    }
+
     stages{
             stage('Preparation'){
     			steps {
